@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+		<Name>View Filters Transfer</Name>
+		<Assembly>ViewFiltersTransfer\ViewFiltersTransfer.dll</Assembly>
+		<FullClassName>ViewFiltersTransfer.RibbonUI</FullClassName>
+		<ClientId>F9B00599-9A9F-45AD-965F-40E56E3E6EC1</ClientId>
+		<VendorId>GCRA010</VendorId>
+		<VendorDescription>Buro Happold</VendorDescription>
+	</AddIn>
+</RevitAddIns>
