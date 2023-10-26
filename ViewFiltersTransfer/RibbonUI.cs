@@ -41,13 +41,13 @@ namespace ViewFiltersTransfer
                 String imagePath = imagesFolderPath + "AppLogo64x64.png";
                 String largeImagePath = imagesFolderPath + "AppLogo96x96.png";
                 String toolTipImagePath = imagesFolderPath + "AppLogo.png";
-                String toolTipText = "View Filters Transfer";
+                String toolTipText = "View Filters Transfer to ETABS";
                 String longDescription = System.IO.File.ReadAllText(textFolderPath + "AppLongDescription.txt");
                 String assemblyFullPath = projectFolderPath + "bin\\Debug\\ViewFiltersTransfer.dll";
                 String className = "ViewFiltersTransfer.Command";
 
                 //3. Create RibbonItem (PushButton)
-                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "View Filters\n Transfer", imagePath,
+                RibbonItemFactory.getInstance().create(ribbonPanel, RibbonItemType.PushButton, "View Filters\n Transfer to ETABS", imagePath,
                                                        largeImagePath, toolTipImagePath, toolTipText, longDescription, assemblyFullPath,
                                                        className);
                 return Result.Succeeded;

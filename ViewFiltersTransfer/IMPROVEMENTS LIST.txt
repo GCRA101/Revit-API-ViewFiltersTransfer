@@ -1,0 +1,2 @@
+1. Create an adapter class passing from the Revit Color to the ETABS Color object
+2. Use the Adapter Design Pattern to move from Revit to Etabs and viceversa

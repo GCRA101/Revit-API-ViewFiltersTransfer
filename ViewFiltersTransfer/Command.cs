@@ -25,6 +25,7 @@ using System.Runtime.CompilerServices;
 using Autodesk.Revit.Creation;
 using System.Security.Cryptography;
 using View = Autodesk.Revit.DB.View;
+using System.Collections;
 
 namespace ViewFiltersTransfer
 {
@@ -69,10 +70,43 @@ namespace ViewFiltersTransfer
             View activeView = doc.ActiveView;
 
             /*2. GET ALL THE FILTERS' NAMES AND COLORS ASSIGNED TO THE ACTIVE VIEW */
-            Dictionary<String, Autodesk.Revit.DB.Color> filterColorsDict = activeView.GetFilters().
-                            ToDictionary(filterId => ((ParameterFilterElement)doc.GetElement(filterId)).Name.ToString(),
-                                         filterId=>activeView.GetFilterOverrides(filterId).SurfaceBackgroundPatternColor);
+            Dictionary<String, ColorInterface> filterColorsDict = activeView.GetFilters().
+                            ToDictionary(filterId => ((ParameterFilterElement)doc.GetElement(filterId)).Name.ToString().Replace(' ','\0').ToUpper(),
+                                         filterId => (ColorInterface)new RevitColorAdapter(activeView.GetFilterOverrides(filterId).SurfaceBackgroundPatternColor));
 
+            /*3. INITIALIZE CONNECTION TO OPENED ETABS INSTANCE */
+            ETABSConnector.getInstance().initialize();
+
+            /*4. CREATE THE GROUPS IN THE ETABS MODEL */
+            PushGroups groupsPusher = new PushGroups(ETABSConnector.getInstance().getEtabsApp().SapModel, filterColorsDict);
+            groupsPusher.push();
+
+            /*5. GROUP ETABS FRAME NAMES BY CORRESPONDING FRAME SECTION PROPERTY */
+            int numNames = 0;
+            string[] frameNames = null;
+            string[] framePropNames = null;
+            ETABSConnector.getInstance().getEtabsApp().SapModel.FrameObj.GetNameList(ref numNames, ref frameNames);
+            ETABSConnector.getInstance().getEtabsApp().SapModel.PropFrame.GetNameList(ref numNames, ref framePropNames);
+
+            Dictionary<String, List<String>> etabsFramesDict = frameNames.
+                GroupBy(((string frameName) => {string framePropName = "";
+                                                 string sAuto = "";
+                                                 ETABSConnector.getInstance().getEtabsApp().SapModel.
+                                                    FrameObj.GetSection(frameName, ref framePropName, ref sAuto);
+                                                 return framePropName;})).
+                ToDictionary(iGroup => iGroup.Key.ToString().Replace(' ', '\0').ToUpper(), iGroup => iGroup.ToList());
+
+            /*6. ASSIGN GROUPS TO ETABS FRAME OBJECTS */
+            etabsFramesDict.Keys.ToList().ForEach(framePropName => {
+                foreach (string frameName in etabsFramesDict[framePropName]) {
+                    ETABSConnector.getInstance().getEtabsApp().SapModel.FrameObj.SetGroupAssign(frameName, framePropName); } });
+
+
+            /* USE THE CLASS MODIFYOBJGROUPASSIGN TO ASSIGN THE GROUP TO THE ELEMENTS!!!! */
+            //ModifyObjGroupAssign modifyGroupAssign = new ModifyObjGroupAssign()
+
+            /* SHUT DOWN ETABS */
+            //ETABSConnector.getInstance().dispose();
 
 
         }
