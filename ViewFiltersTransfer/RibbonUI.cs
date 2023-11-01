@@ -44,7 +44,7 @@ namespace ViewFiltersTransfer
                 String toolTipText = "View Filters Transfer";
                 String longDescriptionFilePath = "ViewFiltersTransfer.AppLongDescription.txt";
                 String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
-                String assemblyFullPath = projectFolderPath + "bin\\Debug\\ViewFiltersTransfer.dll";
+                String assemblyFullPath = Assembly.GetExecutingAssembly().Location;
                 String className = "ViewFiltersTransfer.Command";
 
                 //3. Create RibbonItem (PushButton)
