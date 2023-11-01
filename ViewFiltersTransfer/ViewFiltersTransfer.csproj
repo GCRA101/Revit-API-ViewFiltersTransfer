@@ -86,6 +86,12 @@
   <ItemGroup>
     <None Include="ViewFiltersTransfer.addin" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppLogo.png" />
+    <EmbeddedResource Include="AppLogo64x64.png" />
+    <EmbeddedResource Include="AppLogo96x96.png" />
+    <EmbeddedResource Include="AppLongDescription.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(AppData)\Autodesk\Revit\Addins\2022\$(TargetName)\$(TargetFileName)"

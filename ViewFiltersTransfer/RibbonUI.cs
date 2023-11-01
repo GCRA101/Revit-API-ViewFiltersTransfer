@@ -7,6 +7,8 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
 using System.Linq;
 using ViewFiltersFactory;
+using System.IO;
+using System.Reflection;
 
 namespace ViewFiltersTransfer
 {
@@ -16,7 +18,6 @@ namespace ViewFiltersTransfer
         /* ATTRIBUTES */
         //private String projectFolderPath = System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName;
         private String projectFolderPath = "c:\\Users\\galbieri\\OneDrive - Buro Happold\\Structures\\10_Computational\\HOI\\Revit API Plugins\\ViewFiltersTransfer\\ViewFiltersTransfer\\";
-        private String imagesFolderPath, textFolderPath;
         private RibbonPanel ribbonPanel;
 
 
@@ -35,15 +36,14 @@ namespace ViewFiltersTransfer
                 //1. Get Ribbon Panel "View Filters"
                 RibbonPanel ribbonPanel = application.GetRibbonPanels("BH Plugins").
                                           Find(rbPanel => rbPanel.Name == "View Filters");
-                               
+
                 //2. Buildup Inputs for RibbonItemFactory
-                imagesFolderPath = this.projectFolderPath + "Images\\";
-                textFolderPath = this.projectFolderPath + "Text Files\\";
-                String imagePath = imagesFolderPath + "AppLogo64x64.png";
-                String largeImagePath = imagesFolderPath + "AppLogo96x96.png";
-                String toolTipImagePath = imagesFolderPath + "AppLogo.png";
-                String toolTipText = "View Filters Transfer to ETABS";
-                String longDescription = System.IO.File.ReadAllText(textFolderPath + "AppLongDescription.txt");
+                String imagePath = "ViewFiltersFactory.AppLogo64x64.png";
+                String largeImagePath = "ViewFiltersFactory.AppLogo96x96.png";
+                String toolTipImagePath = "ViewFiltersFactory.AppLogo.png";
+                String toolTipText = "View Filters Factory";
+                String longDescriptionFilePath = "ViewFiltersFactory.AppLongDescription.txt";
+                String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
                 String assemblyFullPath = projectFolderPath + "bin\\Debug\\ViewFiltersTransfer.dll";
                 String className = "ViewFiltersTransfer.Command";
 
