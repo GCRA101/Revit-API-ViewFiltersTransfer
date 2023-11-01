@@ -38,11 +38,11 @@ namespace ViewFiltersTransfer
                                           Find(rbPanel => rbPanel.Name == "View Filters");
 
                 //2. Buildup Inputs for RibbonItemFactory
-                String imagePath = "ViewFiltersFactory.AppLogo64x64.png";
-                String largeImagePath = "ViewFiltersFactory.AppLogo96x96.png";
-                String toolTipImagePath = "ViewFiltersFactory.AppLogo.png";
-                String toolTipText = "View Filters Factory";
-                String longDescriptionFilePath = "ViewFiltersFactory.AppLongDescription.txt";
+                String imagePath = "ViewFiltersTransfer.AppLogo64x64.png";
+                String largeImagePath = "ViewFiltersTransfer.AppLogo96x96.png";
+                String toolTipImagePath = "ViewFiltersTransfer.AppLogo.png";
+                String toolTipText = "View Filters Transfer";
+                String longDescriptionFilePath = "ViewFiltersTransfer.AppLongDescription.txt";
                 String longDescription = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(longDescriptionFilePath)).ReadToEnd();
                 String assemblyFullPath = projectFolderPath + "bin\\Debug\\ViewFiltersTransfer.dll";
                 String className = "ViewFiltersTransfer.Command";
