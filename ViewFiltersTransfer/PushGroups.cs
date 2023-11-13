@@ -30,6 +30,9 @@ namespace ViewFiltersTransfer
 
         public void push()
         {
+            // Delete Groups already existing in the ETABS Model
+            this.groups.ToList().ForEach(kvpair => this.etabsModel.GroupDef.Delete(kvpair.Key));
+            // Create Groups
             this.groups.ToList().ForEach(kvpair => this.etabsModel.GroupDef.SetGroup_1(kvpair.Key,kvpair.Value.getEtabsIntValue()));
         }
 
