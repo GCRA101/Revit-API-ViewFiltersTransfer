@@ -99,7 +99,10 @@ namespace ViewFiltersTransfer
             /*6. ASSIGN GROUPS TO ETABS FRAME OBJECTS */
             etabsFramesDict.Keys.ToList().ForEach(framePropName => {
                 foreach (string frameName in etabsFramesDict[framePropName]) {
-                    ETABSConnector.getInstance().getEtabsApp().SapModel.FrameObj.SetGroupAssign(frameName, framePropName); } });
+                    // Remove any pre-existing pushed group assignment
+                    filterColorsDict.ToList().ForEach(kvpair=> ETABSConnector.getInstance().getEtabsApp().SapModel.FrameObj.SetGroupAssign(frameName,kvpair.Key,true));
+                    // Assign corresponding group to each frame object
+                    ETABSConnector.getInstance().getEtabsApp().SapModel.FrameObj.SetGroupAssign(frameName, framePropName,false); } });
 
 
             /* USE THE CLASS MODIFYOBJGROUPASSIGN TO ASSIGN THE GROUP TO THE ELEMENTS!!!! */
