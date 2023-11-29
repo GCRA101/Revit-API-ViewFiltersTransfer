@@ -16,5 +16,12 @@ The automated creation of Groups in ETABS mirroring the View Filters defined in 
 
 ## Install
 
+To install the plugin, first make sure to have no Revit instance running on the computer and follow the steps below:
+1. Build the code
+2. Copy and paste the .addin file in the folder c:\Users\UserName\AppData\Roaming\Autodesk\Revit\Addins\Version\
+3. Create the folder ViewFiltersTransfer\ in the folder at point 2. and place in it a copy of the assembly file (ViewFiltersTransfer.dll)
+4. Unblock both the .addin and the .dll file (right click on it -> Properties -> Check the checkbox "Unblock")
+5. Run Revit
+6. Find the plugin button in the BH Plugins Ribbon Tab
 
 
